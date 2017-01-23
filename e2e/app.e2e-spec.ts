@@ -1,6 +1,6 @@
 import { ChatA2Page } from './app.po';
 
-describe('chat-a2 App', function() {
+xdescribe('chat-a2 App', function() {
   let page: ChatA2Page;
 
   beforeEach(() => {

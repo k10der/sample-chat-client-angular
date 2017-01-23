@@ -1,0 +1,8 @@
+@import '../values';
+
+.app {
+  width: 100%;
+  height: 100%;
+
+  background: transparentize($color-main, 0.3);
+}
