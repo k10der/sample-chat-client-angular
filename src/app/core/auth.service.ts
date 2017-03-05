@@ -1,23 +1,37 @@
-import {Http, Response} from '@angular/http';
-import {Injectable} from '@angular/core';
-import {tokenNotExpired} from 'angular2-jwt';
-import {Observable} from 'rxjs/Observable';
+import { Http, Response } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { tokenNotExpired } from 'angular2-jwt';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/multicast';
 
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
+import { StorageService } from './storage/storage.service';
 
 @Injectable()
 export class AuthService {
+  isLoggedIn$: Observable<boolean>;
+
   // Setting backend URL
   private backendUrl = environment.backendUrl;
+  // Setting token name
+  private tokenName = environment.userTokenName;
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+              private storage: StorageService) {
+    this.isLoggedIn$ =
+      Observable
+        .interval(5000)
+        .map(() => this.isLoggedIn())
+        .multicast(new BehaviorSubject(this.isLoggedIn()))
+        .refCount();
   }
 
   /**
-   * @description
    * Authenticate a user with provided credentials
    *
    * @param username
@@ -31,7 +45,7 @@ export class AuthService {
         // Getting response's data
         const body = res.json();
         // Setting user's token
-        localStorage.setItem('user_token', body['token']);
+        this.storage.setItem(this.tokenName, body['token']);
 
         return body;
       })
@@ -46,12 +60,20 @@ export class AuthService {
   }
 
   /**
-   * @description
+   * Get current user token
+   *
+   * @return {string|undefined}
+   */
+  getToken(): string|undefined {
+    return this.storage.getItem(this.tokenName);
+  }
+
+  /**
    * Is current user logged in
    *
    * @return {boolean}
    */
   isLoggedIn(): boolean {
-    return tokenNotExpired('user_token');
+    return tokenNotExpired(this.tokenName);
   }
 }

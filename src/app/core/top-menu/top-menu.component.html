@@ -1,3 +1,6 @@
 <nav>
-  <a [routerLink]="['login']">Login to</a>
+  <a *ngIf="!authService.isLoggedIn()" [routerLink]="['login']">Login to</a>
+  <a *ngIf="!authService.isLoggedIn()" [routerLink]="['register']">Register</a>
+  <a *ngIf="authService.isLoggedIn()" [routerLink]="['rooms']">Rooms</a>
+  <a *ngIf="authService.isLoggedIn()" [routerLink]="['profile']">Profile</a>
 </nav>

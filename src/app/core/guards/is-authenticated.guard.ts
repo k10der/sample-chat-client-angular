@@ -6,10 +6,10 @@ import {
   Route,
   Router
 } from '@angular/router';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {AuthService} from '../auth.service';
+import { AuthService } from '../auth.service';
 
 /**
  * Guard for testing whether certain route can be

@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
-import {TestBed, async, fakeAsync, tick, discardPeriodicTasks} from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import { TestBed, async, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-import {AppComponent} from './app.component';
-import {AuthService} from './core/auth.service';
+import { AppComponent } from './app.component';
+import { AuthService } from './core/auth.service';
 
 describe('AppComponent', () => {
   class AuthServiceMock {

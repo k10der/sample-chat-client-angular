@@ -1,7 +1,8 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {RegisterComponent} from './register.component';
+import { SharedModule } from '../shared/shared.module';
+import { RegisterComponent } from './register.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    SharedModule,
     RouterModule.forChild(routes),
   ],
   declarations: [

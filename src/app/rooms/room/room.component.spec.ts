@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {ActivatedRoute, Params} from '@angular/router';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Params } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import {ChatComponent} from './chat.component';
+import { RoomComponent } from './room.component';
 
-describe('ChatComponent', () => {
-  let component: ChatComponent;
-  let fixture: ComponentFixture<ChatComponent>;
+describe('RoomComponent', () => {
+  let component: RoomComponent;
+  let fixture: ComponentFixture<RoomComponent>;
 
   class ActivatedRouteMock {
     params: Params;
@@ -22,7 +22,7 @@ describe('ChatComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ChatComponent],
+      declarations: [RoomComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -34,7 +34,7 @@ describe('ChatComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatComponent);
+    fixture = TestBed.createComponent(RoomComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

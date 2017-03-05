@@ -1,12 +1,12 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../core/auth.service';
-import {LoginComponent} from './login.component';
+import { AuthService } from '../core/auth.service';
+import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   class AuthServiceMock {

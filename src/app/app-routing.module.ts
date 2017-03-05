@@ -1,16 +1,16 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {IsAuthenticatedGuard} from './core/guards/is-authenticated.guard';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { IsAuthenticatedGuard } from './core/guards/is-authenticated.guard';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'chats',
+    redirectTo: 'rooms',
   },
   {
-    path: 'chats',
-    loadChildren: 'app/chats/chats.module#ChatsModule',
+    path: 'rooms',
+    loadChildren: 'app/rooms/rooms.module#RoomsModule',
     canActivate: [IsAuthenticatedGuard],
     canLoad: [IsAuthenticatedGuard],
   },
@@ -22,7 +22,10 @@ const routes: Routes = [
     path: 'register',
     loadChildren: 'app/register/register.module#RegisterModule',
   },
-
+  {
+    path: 'profile',
+    loadChildren: 'app/profile/profile.module#ProfileModule',
+  },
 ];
 
 @NgModule({

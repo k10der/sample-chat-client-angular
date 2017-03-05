@@ -1,0 +1,10 @@
+<p>
+  chat works! {{roomId}}
+</p>
+<p>Messages</p>
+<p *ngFor="let m of messages">[{{m.createdAt | date: 'yyyy.MM.dd HH:mm:ss'}}] {{m.user}}: {{m.text}}</p>
+<hr>
+<input type="text" #msg>
+<br>
+
+<button (click)="sendMessage(msg.value); msg.value = ''">Send</button>

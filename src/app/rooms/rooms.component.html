@@ -1,0 +1,3 @@
+<a [routerLink]="['.']">Room list</a>
+<a *ngFor="let room of joinedRooms" [routerLink]="['./', room.id]">{{room.id}}</a>
+<router-outlet></router-outlet>

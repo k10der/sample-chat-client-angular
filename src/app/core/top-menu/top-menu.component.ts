@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'ca-top-menu',
@@ -7,7 +9,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class TopMenuComponent implements OnInit {
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {

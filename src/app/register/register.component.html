@@ -1,3 +1,33 @@
 <p>
   register works!
 </p>
+<form (submit)="createAccountAction(registerForm.value)" #registerForm="ngForm" #f>
+  <div>
+    <label for="username">Username</label>
+    <br>
+    <input id="username"
+           name="username"
+           type="text"
+           [(ngModel)]="user.username"
+           #username="ngModel"
+           pattern="[_0-9a-zA-Z]+"
+           minlength="3"
+           maxlength="50"
+           required>
+    <div *ngIf="username.invalid && username.touched">Invalid!</div>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <br>
+    <input id="password"
+           name="password"
+           type="password"
+           [(ngModel)]="user.password"
+           #password="ngModel"
+           minlength="6"
+           maxlength="100"
+           required>
+    <div *ngIf="password.invalid  && password.touched">Invalid!</div>
+  </div>
+  <button type="submit" [disabled]="!registerForm.valid || processingForm">Register</button>
+</form>

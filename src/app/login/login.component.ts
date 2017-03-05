@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../core/auth.service';
-import {NgForm} from '@angular/forms';
+import { AuthService } from '../core/auth.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'ca-login',

@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
-import {TestBed, async, inject} from '@angular/core/testing';
-import {ActivatedRouteSnapshot, RouterStateSnapshot, Route, Router} from '@angular/router';
+import { TestBed, async, inject } from '@angular/core/testing';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Route, Router } from '@angular/router';
 
-import {AuthService} from '../auth.service';
-import {IsAuthenticatedGuard} from './is-authenticated.guard';
+import { AuthService } from '../auth.service';
+import { IsAuthenticatedGuard } from './is-authenticated.guard';
 import createSpy = jasmine.createSpy;
 
 describe('IsAuthenticatedGuard', () => {

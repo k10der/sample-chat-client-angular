@@ -2,11 +2,22 @@
   <p>Login</p>
   <form #loginForm="ngForm" (ngSubmit)="onLoginFormSubmit(loginForm)">
     <label for="username">Username</label>
-    <input id="username" name="username" type="text" [(ngModel)]="credentials.username" required pattern="[a-zA-Z0-9]{3,25}">
+    <input id="username"
+           name="username"
+           type="text"
+           [(ngModel)]="credentials.username"
+           pattern="[a-zA-Z0-9]{3,25}"
+           required>
     <br>
     <label for="password">Password</label>
-    <input id="password" name="password" type="password" [(ngModel)]="credentials.password" required>
+    <input id="password"
+           name="password"
+           type="password"
+           [(ngModel)]="credentials.password"
+           required>
     <br>
-    <button class="btn" type="submit" [disabled]="loginForm.form.invalid">Login</button>
+    <button class="btn" type="submit"
+            [disabled]="loginForm.invalid">Login
+    </button>
   </form>
 </div>
