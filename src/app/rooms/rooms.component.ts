@@ -1,68 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { RoomsService } from './rooms.service';
+import { Room } from './_models/room.model';
+import * as roomsReducer from './_reducers/rooms.reducer';
 
 @Component({
-  selector: 'ca-chats',
   templateUrl: 'rooms.component.html',
   styleUrls: ['rooms.component.scss']
 })
-export class RoomsComponent implements OnInit {
-  rooms: Observable<any>;
-  joinedRooms: Array<any>;
+export class RoomsComponent {
+  state$: Observable<any>;
+  joinedRooms$: Observable<Room[]>;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private roomsService: RoomsService) {
-    // Setting a link to joined rooms
-    this.joinedRooms = this.roomsService
-      .joinedRooms;
-  }
-
-  ngOnInit() {
-    // Getting all available rooms
-    this.rooms = this.roomsService.getRooms();
-  }
-
-  /**
-   * Create room with a given title
-   *
-   * @param {string} title - A title of a new room
-   */
-  createRoom(title) {
-    this.roomsService
-      .createRoom(title)
-      .subscribe(
-        () => {
-          console.log('created');
-        },
-        err => {
-          console.log(err);
-        }
-      );
-  }
-
-  /**
-   * Join chat room
-   *
-   * @param {string} roomId - Id of room to be joined to
-   */
-  joinRoom(roomId: string): void {
-    this.roomsService
-      .joinRoom(roomId)
-      .subscribe(
-        res => {
-          // Navigating to a particular room
-          this.router.navigate([res.room.id], {relativeTo: this.route});
-          // Load room messages
-          this.roomsService.loadRoomMessages(res.room.id, 20, false);
-        },
-        err => {
-          // TODO
-          console.log('err', err);
-        },
-      );
+  constructor(private store: Store<any>) {
+    this.joinedRooms$ = this.store.select(roomsReducer.getJoinedRooms);
+    this.state$ = this.store;
   }
 }

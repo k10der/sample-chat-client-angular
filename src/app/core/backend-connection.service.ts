@@ -79,7 +79,7 @@ export class BackendConnectionService {
           // Completing the observable
           subscribe.complete();
         });
-      })
+      });
     }
 
     // Emitting an event
@@ -98,7 +98,7 @@ export class BackendConnectionService {
 
       return () => {
         this.socket.off(eventName, listener);
-      }
+      };
     });
   }
 

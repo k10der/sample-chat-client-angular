@@ -1,59 +1,85 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { toPayload } from '@ngrx/effects';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 
-import { RoomsService } from '../rooms.service';
+import * as messagesActions from '../_actions/messages.actions';
+import * as messagesReducer from '../_reducers/messages.reducer';
+import * as roomUsersReducer from '../_reducers/room-users.reducer';
+import * as roomsActions from '../_actions/rooms.actions';
+import { Message } from '../_models/message.model';
+import { MessagesService } from '../messages.service';
+import { RoomsEffectsService } from '../_effects/rooms-effects.service';
+import { Room } from '../_models/room.model';
+import { User } from '../../core/_models/user.model';
 
 @Component({
-  selector: 'ca-chat',
   templateUrl: 'room.html',
   styleUrls: ['room.component.scss']
 })
 export class RoomComponent implements OnInit, OnDestroy {
   public roomId: string;
-  public messages: Array<any> = [];
-  public messages$: Subscription;
-  public params$: Subscription;
+  public messages$: Observable<Message[]>;
+  public users$: Observable<User[]>;
+
+  private leaveRoomSuccess$: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private roomsService: RoomsService,) {
+              private messagesService: MessagesService,
+              private roomsEffectsService: RoomsEffectsService,
+              private router: Router,
+              private store: Store<any>) {
   }
 
   ngOnInit() {
-
-    this.messages$ = this.activatedRoute
-      .params
-      .switchMap((params: Params) => {
-        this.roomId = params['roomId'];
-        return this.roomsService.joinedRooms[0].messages$;
-      })
-      .subscribe(message => {
-
-        // this.messages.push(message);
+    // TODO to be moved
+    this.leaveRoomSuccess$ = this.roomsEffectsService.leaveRoom$
+      .map(toPayload)
+      .subscribe((room: Room) => {
+        if (room.id === this.roomId) {
+          this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+        }
       });
-    this.params$ = this.activatedRoute
-      .params
-      .map((params: Params) => {
-        this.messages = this.roomsService.joinedRoomsHash[params['roomId']].messages;
-      })
-      .subscribe();
+
+    this.messages$ =
+      this.activatedRoute.params
+        .switchMap((params: Params) => {
+          this.roomId = params['roomId'];
+          return this.store.select(messagesReducer.getRoomMessages(this.roomId));
+        });
+
+    this.users$ =
+      this.activatedRoute.params
+        .switchMap((params: Params) => {
+          this.roomId = params['roomId'];
+          return this.store.select(roomUsersReducer.getRoomUsersEntries(this.roomId));
+        });
   }
 
   ngOnDestroy(): void {
-    this.messages$.unsubscribe();
-    this.params$.unsubscribe();
+    this.leaveRoomSuccess$.unsubscribe();
   }
 
   /**
-   * Send a message to a current room
+   * Leave the current room
+   * @param {string} roomId - Room id
+   */
+  leaveRoom(roomId: string) {
+    this.store.dispatch(new roomsActions.LeaveRoomAction(roomId));
+  }
+
+  /**
+   * Send a message to the current room
    *
    * @param {string} messageText - Message's body
    */
   sendMessage(messageText: string): void {
-    this.roomsService
-      .sendMessage(this.roomId, messageText)
-      .subscribe(() => {
-      });
+    this.store.dispatch(new messagesActions.SendMessageAction({
+      roomId: this.roomId,
+      message: this.messagesService.createMessage(messageText),
+    }));
   }
 }

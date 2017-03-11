@@ -1,8 +1,12 @@
 <p>
   chat works! {{roomId}}
 </p>
+<button (click)="leaveRoom(roomId)">Leave room {{roomId}}</button>
 <p>Messages</p>
-<p *ngFor="let m of messages">[{{m.createdAt | date: 'yyyy.MM.dd HH:mm:ss'}}] {{m.user}}: {{m.text}}</p>
+<p *ngFor="let m of (messages$ | async)">[{{m.createdAt | date: 'yyyy.MM.dd HH:mm:ss'}}] {{m.user}}: {{m.text}}</p>
+<hr>
+<p>Users</p>
+<p *ngFor="let u of (users$ | async)">{{u.username}}</p>
 <hr>
 <input type="text" #msg>
 <br>

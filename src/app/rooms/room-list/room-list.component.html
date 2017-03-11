@@ -3,7 +3,8 @@
 </p>
 <input #title>
 <p>
-  <button (click)="createRoom(title.value); title.value = '';">Add Room</button>
+  <button (click)="createRoom(title.value); title.value = '';" [disabled]="(roomsFlags$ | async).isCreating">Add Room
+  </button>
 </p>
 <h2>Rooms</h2>
-<button *ngFor="let room of rooms | async" (click)="joinRoom(room.id)">{{room.title}}</button>
+<button *ngFor="let room of (availableRooms$ | async)" (click)="joinRoom(room, $event)">{{room.title}}</button>

@@ -1,24 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do'
 
-import { RoomsService } from '../rooms.service';
+import * as roomsActions from '../_actions/rooms.actions';
+import * as roomsReducer from '../_reducers/rooms.reducer';
+import { RoomsEffectsService } from '../_effects/rooms-effects.service';
+import { Room } from '../_models/room.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'ca-chats',
   templateUrl: 'room-list.component.html',
   styleUrls: ['room-list.component.scss']
 })
-export class RoomListComponent implements OnInit {
+export class RoomListComponent implements OnInit, OnDestroy {
+
   rooms: Observable<any>;
+  availableRooms$: Observable<any>;
+  roomsFlags$: Observable<any>;
+  joinRoomSuccess$: Subscription;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private roomsService: RoomsService) {
+              private roomsEffectsService: RoomsEffectsService,
+              private store: Store<any>) {
+    this.availableRooms$ = this.store.select(roomsReducer.getAvailableRooms);
+    this.roomsFlags$ = this.store.select(roomsReducer.getRoomsFlags);
   }
 
   ngOnInit() {
-    this.rooms = this.roomsService.getRooms();
+    this.store.dispatch(new roomsActions.GetRoomsAction(null));
+    this.joinRoomSuccess$ =
+      this.roomsEffectsService.joinRoomSuccess$
+        .subscribe((room: Room) => {
+          this.router.navigate([room.id], {relativeTo: this.route});
+        });
+  }
+
+  ngOnDestroy(): void {
+    this.joinRoomSuccess$.unsubscribe();
   }
 
   /**
@@ -27,48 +48,28 @@ export class RoomListComponent implements OnInit {
    * @param {string} title - A title of a new room
    */
   createRoom(title) {
-    this.roomsService
-      .createRoom(title)
-      .subscribe(
-        () => {
-          console.log('created');
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    // TODO
+    this.store.dispatch(new roomsActions.CreateRoomAction(
+      {
+        id: (new Date()).toString(),
+        title: title,
+        createdAt: new Date(),
+        isPrivate: false,
+      }
+    ));
   }
 
   /**
    * Join chat room
    *
-   * @param {string} roomId - Id of room to be joined to
+   * @param {Room} room - Room object
+   * @param {MouseEvent} e - Current mouse event
    */
-  joinRoom(roomId: string): void {
-    // Function to navigate to a room
-    const navigateToRoom = roomId => {
-      // Navigating to a particular room
-      this.router.navigate([roomId], {relativeTo: this.route});
-    };
-
-    if (this.roomsService.isJoinedToRoom(roomId)) {
-      return navigateToRoom(roomId);
+  joinRoom(room: Room, e: MouseEvent): void {
+    if (e.altKey) {
+      this.store.dispatch(new roomsActions.DeleteRoomAction(room));
+    } else {
+      this.store.dispatch(new roomsActions.JoinRoomAction(room.id));
     }
-
-    this.roomsService
-      .joinRoom(roomId)
-      .subscribe(
-        res => {
-          // Navigating to a particular room
-          navigateToRoom(res.room.id);
-          // Load room messages
-          this.roomsService.loadRoomMessages(res.room.id)
-            .toPromise();
-        },
-        err => {
-          // TODO
-          console.log('err', err);
-        },
-      );
   }
 }

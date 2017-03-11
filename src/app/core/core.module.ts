@@ -14,9 +14,10 @@ import { BackendConnectionService, socketIOLibrary } from './backend-connection.
 import { ProfileService } from './profile.service';
 import { storageFactory } from './storage/storage.factory';
 import { StorageService } from './storage/storage.service';
+import { UsersService } from './users.service';
 
 import { TopMenuComponent } from './top-menu/top-menu.component';
-import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
+import { IsAuthenticatedGuard } from './_guards/is-authenticated.guard';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
       deps: [APP_STORAGE_TYPE],
     },
     IsAuthenticatedGuard,
+    UsersService,
   ],
   exports: [
     BrowserModule,

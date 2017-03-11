@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 
 export function authHttpFactory(http: Http,
                                 options: RequestOptions,
-                                authService: AuthService,) {
+                                authService: AuthService) {
   return new AuthHttp(
     new AuthConfig({
       tokenGetter: authService.getToken.bind(authService),
