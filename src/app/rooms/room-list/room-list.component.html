@@ -1,10 +1,15 @@
-<p>
-  rooms-list works!
-</p>
-<input #title>
-<p>
-  <button (click)="createRoom(title.value); title.value = '';" [disabled]="(roomsFlags$ | async).isCreating">Add Room
-  </button>
-</p>
-<h2>Rooms</h2>
-<button *ngFor="let room of (availableRooms$ | async)" (click)="joinRoom(room, $event)">{{room.title}}</button>
+<md-card *ngFor="let room of (availableRooms$ | async)">
+  <md-card-title>{{room.title}}</md-card-title>
+  <md-card-actions>
+    <button md-button
+            (click)="joinRoom(room, $event)">Join room
+    </button>
+  </md-card-actions>
+</md-card>
+
+<a class="fab"
+   title="Create a new room"
+   md-fab
+   [routerLink]="['./', {action: 'createRoom'}]">
+  <md-icon>add</md-icon>
+</a>

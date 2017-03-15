@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 
 import * as messagesActions from '../_actions/messages.actions';
@@ -12,8 +12,8 @@ import * as roomUsersReducer from '../_reducers/room-users.reducer';
 import * as roomsActions from '../_actions/rooms.actions';
 import { Message } from '../_models/message.model';
 import { MessagesService } from '../messages.service';
-import { RoomsEffectsService } from '../_effects/rooms-effects.service';
 import { Room } from '../_models/room.model';
+import { RoomsEffectsService } from '../_effects/rooms-effects.service';
 import { User } from '../../core/_models/user.model';
 
 @Component({
@@ -56,6 +56,9 @@ export class RoomComponent implements OnInit, OnDestroy {
         .switchMap((params: Params) => {
           this.roomId = params['roomId'];
           return this.store.select(roomUsersReducer.getRoomUsersEntries(this.roomId));
+        })
+        .map((users: User[]) => {
+          return users.sort((u1: User, u2: User) => +(u1.username > u2.username));
         });
   }
 

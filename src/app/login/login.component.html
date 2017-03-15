@@ -1,22 +1,30 @@
-<div>
-  <p>Login</p>
-  <form #loginForm="ngForm" (ngSubmit)="onLoginFormSubmit(loginForm)">
-    <label for="username">Username</label>
-    <input id="username"
-           name="username"
-           type="text"
-           [(ngModel)]="credentials.username"
-           pattern="[a-zA-Z0-9]{3,25}"
-           required>
-    <br>
-    <label for="password">Password</label>
-    <input id="password"
-           name="password"
-           type="password"
-           [(ngModel)]="credentials.password"
-           required>
-    <br>
-    <button class="btn" type="submit"
+<div class="page">
+  <h2>Angular chat application</h2>
+  <h4>Login</h4>
+  <form class="login-form"
+        #loginForm="ngForm"
+        (ngSubmit)="onLoginFormSubmit(loginForm)">
+    <md-input-container>
+      <input id="username"
+             name="username"
+             type="text"
+             placeholder="User name"
+             mdInput
+             [(ngModel)]="credentials.username"
+             pattern="[a-zA-Z0-9]{3,25}"
+             required>
+    </md-input-container>
+    <md-input-container>
+      <input id="password"
+             name="password"
+             type="password"
+             placeholder="Password"
+             mdInput
+             [(ngModel)]="credentials.password"
+             required>
+    </md-input-container>
+    <button type="submit"
+            md-raised-button
             [disabled]="loginForm.invalid">Login
     </button>
   </form>

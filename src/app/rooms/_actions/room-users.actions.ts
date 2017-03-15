@@ -44,7 +44,7 @@ export class RoomUserJoinedAction implements Action {
 export class RoomUserLeftAction implements Action {
   type: string = ActionTypes.ROOM_USER_LEFT;
 
-  constructor(public payload:  {room: Room, user: User}) {
+  constructor(public payload: {room: Room, user: User}) {
   }
 }
 

@@ -1,6 +1,0 @@
-<a [routerLink]="['.']">Room list</a>
-<a *ngFor="let room of (joinedRooms$ | async)" [routerLink]="['./', room.id]">{{room.title}}</a>
-<pre>
-  {{state$ | async | json}}
-</pre>
-<router-outlet></router-outlet>

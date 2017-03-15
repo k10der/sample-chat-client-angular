@@ -20,9 +20,7 @@ export class IsJoinedGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean {
     return this.store.select(roomsReducer.getJoinedRoomsIds)
-      .map((ids: string[]) => {
-        return true;
-        // return !!(~ids.indexOf(route.params['roomId']));
-      });
+      .map((ids: string[]) => !!~ids.indexOf(route.params['roomId']))
+      .take(1);
   }
 }

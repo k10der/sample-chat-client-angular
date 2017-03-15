@@ -1,14 +1,46 @@
-<p>
-  chat works! {{roomId}}
-</p>
-<button (click)="leaveRoom(roomId)">Leave room {{roomId}}</button>
-<p>Messages</p>
-<p *ngFor="let m of (messages$ | async)">[{{m.createdAt | date: 'yyyy.MM.dd HH:mm:ss'}}] {{m.user}}: {{m.text}}</p>
-<hr>
-<p>Users</p>
-<p *ngFor="let u of (users$ | async)">{{u.username}}</p>
-<hr>
-<input type="text" #msg>
-<br>
-
-<button (click)="sendMessage(msg.value); msg.value = ''">Send</button>
+<!--<nav md-tab-nav-bar>-->
+<!--<a md-tab-link-->
+<!--*ngFor="let link of [1,2,3,4,5]"-->
+<!--[routerLink]="['./', link]">-->
+<!--{{link}}-->
+<!--</a>-->
+<!--</nav>-->
+<!--<nav md-tab-nav-bar>-->
+<!--<a md-tab-link-->
+<!--*ngFor="let link of [1,2,3,4,5]"-->
+<!--[routerLink]="['./', link]"-->
+<!--routerLinkActive #rla="routerLinkActive"-->
+<!--[active]="rla.isActive">-->
+<!--{{link}}-->
+<!--</a>-->
+<!--</nav>-->
+<!--<router-outlet></router-outlet>-->
+<button md-button (click)="leaveRoom(roomId)">Leave room {{roomId}}</button>
+<div class="chat-container">
+  <div class="chat-main">
+    <md-card class="chat-messages">
+      <md-card-content>
+        <p *ngFor="let m of (messages$ | async)">[{{m.createdAt | date: 'yyyy.MM.dd HH:mm:ss'}}] {{m.user}}:
+          {{m.text}}</p>
+      </md-card-content>
+    </md-card>
+    <md-card class="chat-users">
+      <md-card-content>
+        <p *ngFor="let u of (users$ | async)">{{u.username}}</p>
+      </md-card-content>
+    </md-card>
+  </div>
+  <md-card class="chat-input">
+    <md-card-content>
+      <md-input-container>
+        <input mdInput
+               placeholder="Type message..."
+               type="text" #msg>
+      </md-input-container>
+      <button md-icon-button
+              (click)="sendMessage(msg.value); msg.value = ''">
+        <md-icon>send</md-icon>
+      </button>
+    </md-card-content>
+  </md-card>
+</div>

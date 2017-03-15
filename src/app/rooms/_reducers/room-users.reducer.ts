@@ -36,7 +36,7 @@ export function reducer(state = initialState, action: roomUsersActions.Actions):
 
       return {
         ...state,
-        byRoomId:{
+        byRoomId: {
           ...state.byRoomId,
           [roomId]: joinedState,
         },

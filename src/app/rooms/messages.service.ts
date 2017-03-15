@@ -6,9 +6,13 @@ import { BackendConnectionService } from '../core/backend-connection.service';
 import { Message } from './_models/message.model';
 import * as messagesActions from './_actions/messages.actions';
 import { Room } from './_models/room.model';
+import { Profile } from '../core/_models/profile.model';
+import { getProfile } from '../core/_reducers/profile.reducer';
 
 @Injectable()
 export class MessagesService {
+  private profile: Profile;
+
   constructor(private backendConnection: BackendConnectionService, private store: Store<any>) {
     // Subscribing to room messages
     this.backendConnection
@@ -26,6 +30,10 @@ export class MessagesService {
 
         this.store.dispatch(new messagesActions.AddMessageAction({room, message}));
       });
+
+    // Selecting a current profile object
+    this.store.select(getProfile)
+      .subscribe(profile => this.profile = profile);
   }
 
   createMessage(messageText: string): Message {
@@ -33,7 +41,7 @@ export class MessagesService {
 
     return {
       id: verificationToken,
-      user: 'TODO-user',
+      user: this.profile.username,
       text: messageText,
       createdAt: new Date(),
       isPending: true,

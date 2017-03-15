@@ -1,12 +1,13 @@
-.btn {
-  border: 1px solid black;
-  border-radius: 0;
-  text-align: right;
-  padding: 1em 2em;
-  background: rgb(100, 100, 100);
-  color: rgb(255, 255, 255);
+.page {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
 
-  &:disabled {
-    background: rgb(200, 200, 200);
-  }
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
 }

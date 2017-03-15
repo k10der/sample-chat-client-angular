@@ -162,7 +162,7 @@ export function reducer(state: State = initialState, action: roomsActions.Action
 
 // Selectors
 
-export const getRooms = (state: any) => state.rooms; // TODO
+export const getRooms = (state: any) => state.rooms || {}; // TODO
 
 export const getAvailableRooms = createSelector(getRooms, (state: State) => {
   return state.available.reduce((rooms, roomId) => {
@@ -172,14 +172,14 @@ export const getAvailableRooms = createSelector(getRooms, (state: State) => {
 });
 
 export const getJoinedRooms = createSelector(getRooms, (state: State) => {
-  return state.joined.reduce((rooms, roomId) => {
+  return (state.joined || []).reduce((rooms, roomId) => {
     state.byId[roomId] && rooms.push(state.byId[roomId]);
     return rooms;
   }, []);
 });
 
 export const getJoinedRoomsIds = createSelector(getRooms, (state: State) => {
-  return state.joined;
+  return state.joined || [];
 });
 
-export const getRoomsFlags = createSelector(getRooms, (state: State) => state.flags);
+export const getRoomsFlags = createSelector(getRooms, (state: State) => state.flags || {});

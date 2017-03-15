@@ -1,4 +1,43 @@
-<div class="app">
-  <ca-top-menu></ca-top-menu>
+<md-sidenav-container class="app">
+
+  <md-sidenav class="sidenav"
+              #sidenav>
+
+    <div class="sidenav__profile">
+      Profile
+      <br>
+      <a [routerLink]="['/profile']">Profile</a>
+    </div>
+
+    <md-nav-list>
+      <h3 md-subheader>Rooms</h3>
+      <md-list-item (click)="sidenav.close()">
+        <md-icon md-list-avatar>search</md-icon>
+        <a md-line routerLink="/rooms">Search</a>
+        <p md-line>&nbsp;</p>
+      </md-list-item>
+      <md-list-item *ngFor="let room of (joinedRooms$ | async)"
+                    (click)="sidenav.close()">
+        <md-icon md-list-avatar>people</md-icon>
+        <a md-line [routerLink]="['/rooms', room.id]">{{room.title}}</a>
+        <p md-line>&nbsp;</p>
+      </md-list-item>
+    </md-nav-list>
+
+  </md-sidenav>
+
+  <md-toolbar class="app__toolbar"
+              color="primary">
+
+    <button md-icon-button
+            (click)="sidenav.open()">
+      <md-icon>menu</md-icon>
+    </button>
+
+    <span>Available rooms</span>
+
+  </md-toolbar>
+
   <router-outlet></router-outlet>
-</div>
+
+</md-sidenav-container>

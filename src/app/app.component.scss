@@ -5,4 +5,18 @@
   height: 100%;
 
   background: transparentize($color-main, 0.3);
+
+  &__toolbar {
+
+  }
+}
+
+.sidenav {
+  width: 300px;
+
+  &__profile {
+    height: 150px;
+
+    background: darken(gray, 5%);
+  }
 }

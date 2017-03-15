@@ -1,0 +1,43 @@
+<h2 md-dialog-title>New room</h2>
+
+<form #newRoomForm="ngForm"
+(ngSubmit)="onNewRoomFormSubmit(newRoomForm)">
+
+  <md-dialog-content class="newRoomForm">
+    <md-input-container>
+      <input id="title"
+             name="title"
+             type="text"
+             title="Room title"
+             placeholder="Room title"
+             required="required"
+             [(ngModel)]="newRoom.title"
+             mdInput>
+    </md-input-container>
+    <md-input-container>
+      <textarea id="description"
+                name="description"
+                title="Room description"
+                placeholder="Room description"
+                cols="30"
+                rows="5"
+                [(ngModel)]="newRoom.description"
+                mdInput></textarea>
+    </md-input-container>
+    <md-checkbox id="isPrivate"
+                 name="isPrivate"
+                 checked="true"
+                 [(ngModel)]="newRoom.isPrivate">Is Private
+    </md-checkbox>
+  </md-dialog-content>
+
+  <md-dialog-actions>
+    <button md-button
+            md-dialog-close>Close
+    </button>
+    <button type="submit"
+            md-button>Create
+    </button>
+  </md-dialog-actions>
+
+</form>

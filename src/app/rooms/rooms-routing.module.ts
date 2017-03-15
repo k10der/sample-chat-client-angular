@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
 import { RoomComponent } from './room/room.component';
 import { RoomListComponent } from './room-list/room-list.component';
-import { RoomsComponent } from './rooms.component';
 import { RoomsService } from './rooms.service';
 import { reducer as messagesReducer } from './_reducers/messages.reducer';
 import { reducer as roomUsersReducer } from './_reducers/room-users.reducer';
@@ -15,11 +13,13 @@ import { RoomUsersEffectsService } from './_effects/room-users-effects.service';
 import { RoomsEffectsService } from './_effects/rooms-effects.service';
 import { MessagesService } from './messages.service';
 import { MessagesEffectsService } from './_effects/messages-effects.service';
+import { IsJoinedGuard } from './room/is-joined.guard';
+import { ReducersService } from '../core/reducers.service';
+import { CreateRoomDialogComponent } from './_dialogs/create-room-dialog/create-room-dialog.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: RoomsComponent,
     children: [
       {
         path: '',
@@ -28,6 +28,7 @@ const routes: Routes = [
       {
         path: ':roomId',
         component: RoomComponent,
+        canActivate: [IsJoinedGuard],
       }
     ],
   },
@@ -37,16 +38,12 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     SharedModule,
-    StoreModule.provideStore({
-      messages: messagesReducer,
-      rooms: roomsReducer,
-      roomUsers: roomUsersReducer,
-    }),
     EffectsModule.run(MessagesEffectsService),
     EffectsModule.run(RoomUsersEffectsService),
     EffectsModule.run(RoomsEffectsService),
   ],
   providers: [
+    IsJoinedGuard,
     MessagesService,
     MessagesEffectsService,
     RoomsService,
@@ -54,11 +51,19 @@ const routes: Routes = [
     RoomsEffectsService,
   ],
   declarations: [
+    CreateRoomDialogComponent,
     RoomComponent,
     RoomListComponent,
-    RoomsComponent,
   ],
   exports: [RouterModule],
+  entryComponents: [CreateRoomDialogComponent],
 })
 export class RoomsRoutingModule {
+  constructor(private reducersService: ReducersService) {
+    this.reducersService.addReducer({
+      messages: messagesReducer,
+      roomUsers: roomUsersReducer,
+      rooms: roomsReducer,
+    })
+  }
 }
