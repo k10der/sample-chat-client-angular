@@ -29,7 +29,7 @@ export function reducer(state = initialState, action: systemActions.Actions): St
           ...state.connection,
           state: connectionState,
         },
-      }
+      };
     }
 
     case systemActions.ActionTypes.SET_ONLINE_STATE: {
@@ -42,7 +42,7 @@ export function reducer(state = initialState, action: systemActions.Actions): St
           online: onlineState,
           state: !onlineState ? CONNECTION_STATE.Disconnected : state.connection.state,
         },
-      }
+      };
     }
 
     default: {

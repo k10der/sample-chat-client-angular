@@ -10,9 +10,9 @@ export interface State {
     lastId: string;
     entries: Message[];
     flags: {
-      isLoading: boolean,
-    },
-  }
+      isLoading: boolean;
+    };
+  };
 }
 
 export const initialState: State = {};
@@ -21,10 +21,10 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
   switch (action.type) {
 
     case messagesActions.ActionTypes.ADD_MESSAGE: {
-      let {room, message} = action.payload;
+      const {room, message} = action.payload;
 
       // Getting state or creating a new one
-      let newState = state[room.id] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
+      const newState = state[room.id] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
 
       return {
         ...state,
@@ -34,15 +34,15 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
           lastId: message.id,
           entries: [...newState.entries, message],
         },
-      }
+      };
     }
 
 
     case messagesActions.ActionTypes.DELETE_ROOM_MESSAGES: {
-      let room = action.payload;
+      const room = action.payload;
 
       // Getting state or creating a new one
-      let newState = {...state};
+      const newState = {...state};
       delete newState[room.id];
 
       return newState;
@@ -50,10 +50,10 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
 
     case messagesActions.ActionTypes.GET_MESSAGES: {
       // TODO
-      let {roomId} = action.payload;
+      const {roomId} = action.payload;
 
       // Getting state or creating a new one
-      let newState = state[roomId] || {firstId: '', lastId: '', entries: [], flags: {isLoading: true}};
+      const newState = state[roomId] || {firstId: '', lastId: '', entries: [], flags: {isLoading: true}};
 
       return {
         ...state,
@@ -64,15 +64,15 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
             isLoading: true,
           },
         },
-      }
+      };
     }
 
     case messagesActions.ActionTypes.GET_MESSAGES_SUCCESS: {
       // TODO
-      let {room, messages}: {room: Room, messages: Message[]} = action.payload;
+      const {room, messages}: {room: Room, messages: Message[]} = action.payload;
 
       // Getting state or creating a new one
-      let newState = state[room.id] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
+      const newState = state[room.id] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
 
       return {
         ...state,
@@ -86,15 +86,15 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
             isLoading: false,
           },
         },
-      }
+      };
     }
 
     case messagesActions.ActionTypes.SEND_MESSAGE: {
       // TODO
-      let {roomId, message}: {roomId: string, message: Message} = action.payload;
+      const {roomId, message}: {roomId: string, message: Message} = action.payload;
 
       // Getting state or creating a new one
-      let newState = state[roomId] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
+      const newState = state[roomId] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
 
       return {
         ...state,
@@ -109,10 +109,10 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
 
     case messagesActions.ActionTypes.SEND_MESSAGE_SUCCESS: {
       // TODO
-      let {roomId, message}: {roomId: string, message: Message} = action.payload;
+      const {roomId, message}: {roomId: string, message: Message} = action.payload;
 
       // Getting state or creating a new one
-      let newState = state[roomId] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
+      const newState = state[roomId] || {firstId: '', lastId: '', entries: [], flags: {isLoading: false}};
 
       return {
         ...state,
@@ -129,7 +129,7 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
             return entry;
           }),
         },
-      }
+      };
     }
 
     default: {

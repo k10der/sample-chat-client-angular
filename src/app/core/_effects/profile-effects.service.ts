@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
-import * as profileActions from '../_actions/profile.actions'
+import * as profileActions from '../_actions/profile.actions';
 import { ProfileService } from '../profile.service';
 import { Profile } from '../_models/profile.model';
 

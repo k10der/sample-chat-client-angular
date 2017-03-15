@@ -8,7 +8,6 @@ import { MaterialModule } from '@angular/material';
     CommonModule,
     FormsModule,
     MaterialModule,
-    // MaterialModule.forRoot(),
   ],
   declarations: [],
   exports: [

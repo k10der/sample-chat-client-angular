@@ -18,7 +18,7 @@ export class MessagesService {
     this.backendConnection
       .listenTo('room_message')
       .subscribe(res => {
-        let {room, messageTuple}:{room: Room, messageTuple: any[]} = res.data;
+        const {room, messageTuple}: {room: Room, messageTuple: any[]} = res.data;
 
         let message: Message = <Message>{};
 
@@ -37,7 +37,7 @@ export class MessagesService {
   }
 
   createMessage(messageText: string): Message {
-    let verificationToken = Math.random().toString(32).substring(2, 12);
+    const verificationToken = Math.random().toString(32).substring(2, 12);
 
     return {
       id: verificationToken,
@@ -57,7 +57,7 @@ export class MessagesService {
    * @param {boolean?} after - Should messages be loaded before or after a ts
    * @param {string?} timestamp - Timestamp (nanoseconds), that is the origin of getting messages
    */
-  getMessages(roomId: string, limit: number = 20, after: boolean = false, timestamp?: number): Observable<any> {
+  getMessages(roomId: string, limit = 20, after = false, timestamp?: number): Observable<any> {
     return this.backendConnection
       .withAck
       .emit('get_room_messages', {
@@ -80,16 +80,16 @@ export class MessagesService {
         }
 
         // Getting room object
-        let room = res.data.room;
+        const room = res.data.room;
         // Getting messages array
-        let messageTupleArray = res.data.messageTupleArray;
+        const messageTupleArray = res.data.messageTupleArray;
 
-        let messages = [];
+        const messages = [];
 
         // Iterating through the messages tuple
         while (messageTupleArray.length) {
           // Creating a message tuple
-          let messageTuple = [messageTupleArray.shift(), messageTupleArray.shift()];
+          const messageTuple = [messageTupleArray.shift(), messageTupleArray.shift()];
 
           try {
             // Adding new message
@@ -124,7 +124,7 @@ export class MessagesService {
       })
       .map(res => {
         let newMessage: Message;
-        let verificationToken = res.data.verificationToken;
+        const verificationToken = res.data.verificationToken;
 
         // TODO handle error?
         if (verificationToken) {

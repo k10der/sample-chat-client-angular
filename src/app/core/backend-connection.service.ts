@@ -54,7 +54,10 @@ export class BackendConnectionService {
    * Disconnect and destroy the main socket
    */
   disconnect() {
-    this.socket && this.socket.disconnect();
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+
     this.socket = null;
   }
 

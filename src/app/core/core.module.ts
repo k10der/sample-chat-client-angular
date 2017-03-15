@@ -21,7 +21,7 @@ import { StorageService } from './storage/storage.service';
 import { UsersService } from './users.service';
 import * as profileActions from './_actions/profile.actions';
 
-import { reducer as profileReducer }  from './_reducers/profile.reducer';
+import { reducer as profileReducer } from './_reducers/profile.reducer';
 import { reducer as systemReducer } from './_reducers/system.reducer';
 
 import { TopMenuComponent } from './top-menu/top-menu.component';

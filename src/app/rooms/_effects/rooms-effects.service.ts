@@ -70,7 +70,7 @@ export class RoomsEffectsService {
       .map(toPayload)
       .switchMap((roomId: string) => {
         return this.roomsService.leaveRoom(roomId)
-          .switchMap(({room}:{room: Room}) => {
+          .switchMap(({room}: {room: Room}) => {
             return Observable.from([
               new messagesActions.DeleteRoomMessagesAction(room),
               new roomsActions.LeaveRoomSuccessAction(room),

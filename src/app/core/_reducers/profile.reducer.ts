@@ -3,8 +3,7 @@ import { createSelector } from 'reselect';
 import * as profileActions from '../_actions/profile.actions';
 import { Profile } from '../_models/profile.model';
 
-export interface State extends Profile {
-}
+export type State = Profile;
 
 export const initialState: Profile | {} = {};
 
@@ -17,7 +16,7 @@ export function reducer(state = initialState, action: profileActions.Actions): S
       return {
         ...state,
         ...profileData,
-      }
+      };
     }
 
     default: {

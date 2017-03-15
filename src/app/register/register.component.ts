@@ -22,7 +22,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.formProcessing$ && this.formProcessing$.unsubscribe();
+    if (this.formProcessing$) {
+      this.formProcessing$.unsubscribe();
+    }
   }
 
   createAccountAction(user: any) {

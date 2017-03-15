@@ -21,8 +21,4 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  goToRooms() {
-    this.router.navigate(['/rooms']);
-  }
 }

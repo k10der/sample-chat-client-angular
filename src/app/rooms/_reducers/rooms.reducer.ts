@@ -11,11 +11,11 @@ export interface State {
   available: string[];
   joined: string[];
   flags: {
-    isCreating: boolean,
-    isJoining: boolean,
-    isLeaving: boolean,
-    isLoading: boolean,
-  },
+    isCreating: boolean;
+    isJoining: boolean;
+    isLeaving: boolean;
+    isLoading: boolean;
+  };
 }
 
 export const initialState: State = {
@@ -44,7 +44,7 @@ export function reducer(state: State = initialState, action: roomsActions.Action
     }
 
     case roomsActions.ActionTypes.CREATE_ROOM_SUCCESS: {
-      let room = <Room>action.payload;
+      const room = <Room>action.payload;
 
       room.id = room.id.toString();
 
@@ -68,11 +68,11 @@ export function reducer(state: State = initialState, action: roomsActions.Action
     }
 
     case roomsActions.ActionTypes.DELETE_ROOM_SUCCESS: {
-      let room = <Room>action.payload;
+      const room = <Room>action.payload;
 
       room.id = room.id.toString();
 
-      let newById = {...state.byId};
+      const newById = {...state.byId};
       delete newById[room.id];
 
       return {
@@ -96,13 +96,13 @@ export function reducer(state: State = initialState, action: roomsActions.Action
     case roomsActions.ActionTypes.GET_ROOMS_SUCCESS: {
       const rooms: Room[] = action.payload;
 
-      let available = [];
-      let byId = {};
+      const available = [];
+      const byId = {};
 
       rooms.forEach(room => {
         // If room wasn't already added
-        if (!(~state.available.indexOf(room.id.toString()))) {
-          // room.createdAt = new Date(room.createdAt * 1e3);
+        if (state.available.indexOf(room.id.toString()) === -1) {
+          // room.createdAt = new Date(room.createdAt * 1e3); TODO inflate `createdAt` field from `createdTs`
           byId[room.id] = room;
           available.push(room.id.toString());
         }
@@ -133,7 +133,7 @@ export function reducer(state: State = initialState, action: roomsActions.Action
     }
 
     case roomsActions.ActionTypes.JOIN_ROOM_SUCCESS: {
-      let room = <Room>action.payload;
+      const room = <Room>action.payload;
 
       return {
         ...state,
@@ -146,7 +146,7 @@ export function reducer(state: State = initialState, action: roomsActions.Action
     }
 
     case roomsActions.ActionTypes.LEAVE_ROOM_SUCCESS: {
-      let room = <Room>action.payload;
+      const room = <Room>action.payload;
 
       return {
         ...state,
@@ -166,14 +166,20 @@ export const getRooms = (state: any) => state.rooms || {}; // TODO
 
 export const getAvailableRooms = createSelector(getRooms, (state: State) => {
   return state.available.reduce((rooms, roomId) => {
-    state.byId[roomId] && rooms.push(state.byId[roomId]);
+    if (state.byId[roomId]) {
+      rooms.push(state.byId[roomId]);
+    }
+
     return rooms;
   }, []);
 });
 
 export const getJoinedRooms = createSelector(getRooms, (state: State) => {
   return (state.joined || []).reduce((rooms, roomId) => {
-    state.byId[roomId] && rooms.push(state.byId[roomId]);
+    if (state.byId[roomId]) {
+      rooms.push(state.byId[roomId]);
+    }
+
     return rooms;
   }, []);
 });

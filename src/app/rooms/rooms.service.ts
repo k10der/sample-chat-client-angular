@@ -128,10 +128,7 @@ export class RoomsService {
           // throw res.error;
         }
 
-        // Getting room object
-        let room = res.data.room;
-
-        return {room};
+        return {room: res.data.room};
       });
   }
 }

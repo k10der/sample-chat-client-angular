@@ -10,7 +10,8 @@ export class ReducersService {
 
   addReducer(reducerObject: {[reducerKey: string]: ActionReducer<any>}) {
     let iterations = 0;
-    for (let reducerKey in reducerObject) {
+    /* tslint:disable-next-line:forin */
+    for (const reducerKey in reducerObject) {
       if (this.currentReducers[reducerKey]) {
         throw new Error(`${reducerKey} already exists in a store`);
       }

@@ -7,15 +7,15 @@ import { User } from '../../core/_models/user.model';
 export interface State {
   byRoomId: {
     [roomId: string]: {
-      joined: string[],
+      joined: string[];
       flags: {
-        isLoading: boolean,
-      },
-    },
-  },
+        isLoading: boolean;
+      };
+    };
+  };
   usersById: {
-    [userId: string]: User,
-  },
+    [userId: string]: User;
+  };
 }
 
 export const initialState: State = {
@@ -28,11 +28,14 @@ export function reducer(state = initialState, action: roomUsersActions.Actions):
 
     case roomUsersActions.ActionTypes.GET_ROOM_USERS: {
       // TODO
-      let {roomId} = action.payload;
-      if (!roomId) return state;
+      const {roomId} = action.payload;
+
+      if (!roomId) {
+        return state;
+      }
 
       // Getting state or creating a new one
-      let joinedState = state.byRoomId[roomId] || {joined: [], flags: {isLoading: true}};
+      const joinedState = state.byRoomId[roomId] || {joined: [], flags: {isLoading: true}};
 
       return {
         ...state,
@@ -40,16 +43,19 @@ export function reducer(state = initialState, action: roomUsersActions.Actions):
           ...state.byRoomId,
           [roomId]: joinedState,
         },
-      }
+      };
     }
 
     case roomUsersActions.ActionTypes.GET_ROOM_USERS_SUCCESS: {
       const {room, users}: {room: Room, users: User[]} = action.payload;
-      if (!room || !room.id) return state;
 
-      let joined: string[] = [];
+      if (!room || !room.id) {
+        return state;
+      }
 
-      let usersById = {...state.usersById};
+      const joined: string[] = [];
+
+      const usersById = {...state.usersById};
       users.forEach((user: User) => {
         if (!usersById[user.id]) {
           usersById[user.id] = user;
@@ -69,12 +75,15 @@ export function reducer(state = initialState, action: roomUsersActions.Actions):
           }
         },
         usersById,
-      }
+      };
     }
 
     case roomUsersActions.ActionTypes.ROOM_USER_JOINED: {
       const {room, user}: {room: Room, user: User} = action.payload;
-      if (!room || !room.id || !state.byRoomId[room.id]) return state;
+
+      if (!room || !room.id || !state.byRoomId[room.id]) {
+        return state;
+      }
 
       const joined = [...state.byRoomId[room.id].joined, user.id];
       // TODO protect from non existent room
@@ -90,12 +99,15 @@ export function reducer(state = initialState, action: roomUsersActions.Actions):
           ...state.usersById,
           [user.id]: user,
         },
-      }
+      };
     }
 
     case roomUsersActions.ActionTypes.ROOM_USER_LEFT: {
       const {room, user}: {room: Room, user: User} = action.payload;
-      if (!room || !room.id || !state.byRoomId[room.id]) return state;
+
+      if (!room || !room.id || !state.byRoomId[room.id]) {
+        return state;
+      }
       // TODO protect from non existent room
 
       const joined = state.byRoomId[room.id].joined.filter(userId => userId !== user.id);
@@ -108,7 +120,7 @@ export function reducer(state = initialState, action: roomUsersActions.Actions):
             joined,
           },
         },
-      }
+      };
     }
 
     default: {
@@ -128,5 +140,5 @@ export const getRoomUsersEntries = (roomId: string) => createSelector(getRoomUse
 
   return state.byRoomId[roomId].joined.map(userId => {
     return state.usersById[userId] ? state.usersById[userId] : {id: userId, username: 'N/A'};
-  })
+  });
 });

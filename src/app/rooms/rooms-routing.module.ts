@@ -64,6 +64,6 @@ export class RoomsRoutingModule {
       messages: messagesReducer,
       roomUsers: roomUsersReducer,
       rooms: roomsReducer,
-    })
+    });
   }
 }

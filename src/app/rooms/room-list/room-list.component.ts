@@ -89,7 +89,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
         }
         console.log(result);
         // TODO If cancel if success if error
-        let newParams = this.currentParams;
+        const newParams = this.currentParams;
         delete newParams.action;
         this.router.navigate(['./'], <NavigationExtras>{replaceUrl: true, params: newParams});
       });
