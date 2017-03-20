@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import * as broadcastActions from '../../core/_actions/_broadcast.actions';
 import * as roomUsersActions from '../_actions/room-users.actions';
 import { Room } from '../_models/room.model';
 import { User } from '../../core/_models/user.model';
@@ -121,6 +122,12 @@ export function reducer(state = initialState, action: roomUsersActions.Actions):
           },
         },
       };
+    }
+
+    /* System-wide actions handlers */
+
+    case broadcastActions.ActionTypes.BROADCAST_LOGOUT: {
+      return {...initialState};
     }
 
     default: {

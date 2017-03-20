@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthHttp } from 'angular2-jwt';
 import * as io from 'socket.io-client';
@@ -19,20 +20,23 @@ import { ReducersService } from './reducers.service';
 import { SharedModule } from '../shared/shared.module';
 import { StorageService } from './storage/storage.service';
 import { UsersService } from './users.service';
-import * as profileActions from './_actions/profile.actions';
 
 import { reducer as profileReducer } from './_reducers/profile.reducer';
 import { reducer as systemReducer } from './_reducers/system.reducer';
 
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { IsAuthenticatedGuard } from './_guards/is-authenticated.guard';
-import { StoreModule, Store } from '@ngrx/store';
+import { SystemEffectsService } from './_effects/system-effects.service';
 
+export function socketIOFactory() {
+  return io;
+}
 
 @NgModule({
   imports: [
     BrowserModule,
     EffectsModule.run(ProfileEffectsService),
+    EffectsModule.run(SystemEffectsService),
     HttpModule,
     RouterModule,
     SharedModule,
@@ -51,21 +55,22 @@ import { StoreModule, Store } from '@ngrx/store';
       useFactory: authHttpFactory,
       deps: [Http, RequestOptions, AuthService],
     },
-    AuthService,
-    BackendConnectionService,
-    ProfileEffectsService,
-    ProfileService,
     {
       provide: socketIOLibrary,
-      useValue: io,
+      useFactory: socketIOFactory,
     },
     {
       provide: StorageService,
       useFactory: storageFactory,
       deps: [APP_STORAGE_TYPE],
     },
+    AuthService,
+    ProfileEffectsService,
+    ProfileService,
+    BackendConnectionService,
     IsAuthenticatedGuard,
     ReducersService,
+    SystemEffectsService,
     UsersService,
   ],
   exports: [
@@ -75,20 +80,11 @@ import { StoreModule, Store } from '@ngrx/store';
   ]
 })
 export class CoreModule {
-  constructor(private authService: AuthService,
-              private profileEffectsService: ProfileEffectsService,
-              private reducersService: ReducersService,
-              private store: Store<any>) {
+  constructor(private reducersService: ReducersService) {
     // Adding reducers
     this.reducersService.addReducer({
       profile: profileReducer,
       system: systemReducer,
     });
-
-    // If the user is logged in
-    if (this.authService.isLoggedIn()) {
-      // Requesting profile data
-      this.store.dispatch(new profileActions.LoadProfileDataAction());
-    }
   }
 }

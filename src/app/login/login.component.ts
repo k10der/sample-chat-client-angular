@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { AuthService } from '../core/auth.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import * as profileActions from '../core/_actions/profile.actions';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'ca-login',
@@ -15,7 +17,9 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private store: Store<any>) {
   }
 
   ngOnInit() {
@@ -25,6 +29,10 @@ export class LoginComponent implements OnInit {
     const {username, password} = f.value;
 
     this.authService.authenticate(username, password)
-      .subscribe(() => this.router.navigate(['']), err => console.log(err));
+      .subscribe(() => {
+        this.store.dispatch(new profileActions.SetAuthenticationStateAction({isAuthenticated: true}));
+        // TODO wait untill connection available
+        this.router.navigate(['']);
+      }, err => console.log(err)); // TODO handle auth errors
   }
 }

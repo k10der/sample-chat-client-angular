@@ -1,37 +1,24 @@
 import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { tokenNotExpired } from 'angular2-jwt';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/multicast';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage/storage.service';
-import { LoadProfileDataAction } from './_actions/profile.actions';
 
 @Injectable()
 export class AuthService {
-  isLoggedIn$: Observable<boolean>;
-
   // Setting backend URL
   private backendUrl = environment.backendUrl;
   // Setting token name
   private tokenName = environment.userTokenName;
 
   constructor(private http: Http,
-              private storage: StorageService,
-              private store: Store<any>) {
-    this.isLoggedIn$ =
-      Observable
-        .interval(5000)
-        .map(() => this.isLoggedIn())
-        .multicast(new BehaviorSubject(this.isLoggedIn()))
-        .refCount();
+              private storage: StorageService) {
   }
 
   /**
@@ -39,7 +26,7 @@ export class AuthService {
    *
    * @param username
    * @param password
-   * @return {Observable<R>}
+   * @return {Observable<any>}
    */
   authenticate(username: string, password: string): Observable<any> {
     return this.http
@@ -49,8 +36,6 @@ export class AuthService {
         const body = res.json();
         // Setting user's token
         this.storage.setItem(this.tokenName, body['token']);
-        // Setting current user's profile data
-        this.store.dispatch(new LoadProfileDataAction());
 
         return body;
       })
@@ -78,7 +63,14 @@ export class AuthService {
    *
    * @return {boolean}
    */
-  isLoggedIn(): boolean {
+  isAuthenticated(): boolean {
     return tokenNotExpired(this.tokenName);
+  }
+
+  /**
+   * Handle log out logic (clear saved token)
+   */
+  logOut(): void {
+    this.storage.removeItem(this.tokenName);
   }
 }

@@ -14,6 +14,10 @@ export class SessionStorage implements AppStorage {
     return this.storage.getItem(key);
   }
 
+  removeItem(key: string): void {
+    this.storage.removeItem(key);
+  }
+
   setItem(key: string, value: string): void {
     this.storage.setItem(key, value);
   }

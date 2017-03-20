@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { Message } from '../_models/message.model';
+import * as broadcastActions from '../../core/_actions/_broadcast.actions';
 import * as messagesActions from '../_actions/messages.actions';
 import { Room } from '../_models/room.model';
 
@@ -130,6 +131,12 @@ export function reducer(state = initialState, action: messagesActions.Actions): 
           }),
         },
       };
+    }
+
+    /* System-wide actions handlers */
+
+    case broadcastActions.ActionTypes.BROADCAST_LOGOUT: {
+      return {...initialState};
     }
 
     default: {

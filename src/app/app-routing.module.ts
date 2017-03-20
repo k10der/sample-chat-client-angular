@@ -5,14 +5,24 @@ import { IsAuthenticatedGuard } from './core/_guards/is-authenticated.guard';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'rooms',
-  },
-  {
-    path: 'rooms',
-    loadChildren: 'app/rooms/rooms.module#RoomsModule',
     canActivate: [IsAuthenticatedGuard],
-    canLoad: [IsAuthenticatedGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'rooms',
+      },
+      {
+        path: 'rooms',
+        loadChildren: 'app/rooms/rooms.module#RoomsModule',
+        canLoad: [IsAuthenticatedGuard],
+      },
+      {
+        path: 'profile',
+        loadChildren: 'app/profile/profile.module#ProfileModule',
+        canLoad: [IsAuthenticatedGuard],
+      },
+    ]
   },
   {
     path: 'login',
@@ -21,10 +31,6 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: 'app/register/register.module#RegisterModule',
-  },
-  {
-    path: 'profile',
-    loadChildren: 'app/profile/profile.module#ProfileModule',
   },
 ];
 

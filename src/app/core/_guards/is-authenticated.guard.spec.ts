@@ -39,7 +39,7 @@ describe('IsAuthenticatedGuard', () => {
       `returns true if there is a user is logged-in`,
       inject([Router, AuthService, IsAuthenticatedGuard],
         (r: Router, as: AuthService, guard: IsAuthenticatedGuard) => {
-          const isLoggedInSpy = spyOn(as, 'isLoggedIn').and.returnValue(true);
+          const isLoggedInSpy = spyOn(as, 'isAuthenticated').and.returnValue(true);
           const navigateSpy = spyOn(r, 'navigate').and.stub();
 
           expect(guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBe(true);
@@ -50,7 +50,7 @@ describe('IsAuthenticatedGuard', () => {
       `returns false if there isn't a logged-in user`,
       inject([Router, AuthService, IsAuthenticatedGuard],
         (r: Router, as: AuthService, guard: IsAuthenticatedGuard) => {
-          const isLoggedInSpy = spyOn(as, 'isLoggedIn').and.returnValue(false);
+          const isLoggedInSpy = spyOn(as, 'isAuthenticated').and.returnValue(false);
           const navigateSpy = spyOn(r, 'navigate').and.stub();
 
           expect(guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBe(false);
@@ -64,7 +64,7 @@ describe('IsAuthenticatedGuard', () => {
       `returns true if there is a user is logged-in`,
       inject([Router, AuthService, IsAuthenticatedGuard],
         (r: Router, as: AuthService, guard: IsAuthenticatedGuard) => {
-          const isLoggedInSpy = spyOn(as, 'isLoggedIn').and.returnValue(true);
+          const isLoggedInSpy = spyOn(as, 'isAuthenticated').and.returnValue(true);
           const navigateSpy = spyOn(r, 'navigate').and.stub();
 
           expect(guard.canLoad({} as Route)).toBe(true);
@@ -75,7 +75,7 @@ describe('IsAuthenticatedGuard', () => {
       `returns false if there isn't a logged-in user`,
       inject([Router, AuthService, IsAuthenticatedGuard],
         (r: Router, as: AuthService, guard: IsAuthenticatedGuard) => {
-          const isLoggedInSpy = spyOn(as, 'isLoggedIn').and.returnValue(false);
+          const isLoggedInSpy = spyOn(as, 'isAuthenticated').and.returnValue(false);
           const navigateSpy = spyOn(r, 'navigate').and.stub();
 
           expect(guard.canLoad({} as Route)).toBe(false);

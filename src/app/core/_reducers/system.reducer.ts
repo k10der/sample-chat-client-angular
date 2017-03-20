@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import * as broadcastActions from '../_actions/_broadcast.actions';
 import * as systemActions from '../_actions/system.actions';
 import { CONNECTION_STATE } from '../_enums/connection-states.enum';
 
@@ -45,6 +46,12 @@ export function reducer(state = initialState, action: systemActions.Actions): St
       };
     }
 
+    /* System-wide actions handlers */
+
+    case broadcastActions.ActionTypes.BROADCAST_LOGOUT: {
+      return {...initialState};
+    }
+
     default: {
       return state;
     }
@@ -53,8 +60,8 @@ export function reducer(state = initialState, action: systemActions.Actions): St
 
 // Selectors
 
-export const getMessages = (state: any) => state.messages; // TODO
+export const getSystemState = (state: any) => state.system; // TODO
 
-export const getRoomMessages = (roomId: string) => createSelector(getMessages, (state: State) => {
-  return state[roomId] ? state[roomId].entries : [];
+export const getConnectionState = createSelector(getSystemState, (state: State) => {
+  return state.connection;
 });

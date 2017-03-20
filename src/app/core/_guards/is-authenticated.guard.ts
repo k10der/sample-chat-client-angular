@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from '../auth.service';
 
@@ -17,7 +18,7 @@ import { AuthService } from '../auth.service';
  */
 @Injectable()
 export class IsAuthenticatedGuard implements CanActivate, CanLoad {
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private store: Store<any>, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean {
@@ -30,7 +31,7 @@ export class IsAuthenticatedGuard implements CanActivate, CanLoad {
 
   private checkConditions(): boolean {
     // If current user is authenticated
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isAuthenticated()) {
       // Continue further processing
       return true;
     } else {

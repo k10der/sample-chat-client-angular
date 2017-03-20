@@ -97,13 +97,13 @@ describe('AuthService', () => {
       }));
   });
 
-  describe('#isLoggedIn', () => {
+  describe('#isAuthenticated', () => {
     it(
       `returns true if a valid user token is available`,
       inject([AuthService], (service: AuthService) => {
         const tokenNotExpiredSpy = spyOn(jwt, 'tokenNotExpired').and.returnValue(true);
 
-        expect(service.isLoggedIn()).toBe(true);
+        expect(service.isAuthenticated()).toBe(true);
         expect(tokenNotExpiredSpy).toHaveBeenCalled();
       }));
 
@@ -112,7 +112,7 @@ describe('AuthService', () => {
       inject([AuthService], (service: AuthService) => {
         const tokenNotExpiredSpy = spyOn(jwt, 'tokenNotExpired').and.returnValue(false);
 
-        expect(service.isLoggedIn()).toBe(false);
+        expect(service.isAuthenticated()).toBe(false);
         expect(tokenNotExpiredSpy).toHaveBeenCalled();
       }));
   });

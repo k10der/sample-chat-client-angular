@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/take';
 
 import * as roomsReducer from '../_reducers/rooms.reducer';
 

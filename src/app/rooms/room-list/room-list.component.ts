@@ -23,7 +23,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
   joinRoomSuccess$: Subscription;
 
   private createRoomModal$: Subscription;
-  private currentParams: Params;
+  private currentParams: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

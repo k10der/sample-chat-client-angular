@@ -4,6 +4,7 @@
 import { createSelector } from 'reselect';
 
 import { Room } from '../_models/room.model';
+import * as broadcastActions from '../../core/_actions/_broadcast.actions';
 import * as roomsActions from '../_actions/rooms.actions';
 
 export interface State {
@@ -152,6 +153,12 @@ export function reducer(state: State = initialState, action: roomsActions.Action
         ...state,
         joined: state.joined.filter(roomId => roomId !== room.id),
       };
+    }
+
+    /* System-wide actions handlers */
+
+    case broadcastActions.ActionTypes.BROADCAST_LOGOUT: {
+      return {...initialState};
     }
 
     default: {

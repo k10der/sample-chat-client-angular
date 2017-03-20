@@ -7,6 +7,8 @@
       Profile
       <br>
       <a [routerLink]="['/profile']">Profile</a>
+      <br>
+      <button md-icon-button (click)="onLogoutClick(); sidenav.close()"><md-icon>exit_to_app</md-icon></button>
     </div>
 
     <md-nav-list>
@@ -27,7 +29,8 @@
   </md-sidenav>
 
   <md-toolbar class="app__toolbar"
-              color="primary">
+              color="primary"
+              *ngIf="(profile$ | async).isAuthenticated">
 
     <button md-icon-button
             (click)="sidenav.open()">
@@ -39,5 +42,5 @@
   </md-toolbar>
 
   <router-outlet></router-outlet>
-
+<pre>{{state | json}}</pre>
 </md-sidenav-container>

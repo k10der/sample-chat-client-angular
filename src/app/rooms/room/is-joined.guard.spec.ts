@@ -39,7 +39,7 @@ describe('IsJoinedGuard', () => {
       `returns true if there is a user is logged-in`,
       inject([Router, RoomsService, IsJoinedGuard],
         (r: Router, as: RoomsService, guard: IsJoinedGuard) => {
-          const isLoggedInSpy = spyOn(as, 'isLoggedIn').and.returnValue(true);
+          const isLoggedInSpy = spyOn(as, 'isAuthenticated').and.returnValue(true);
           const navigateSpy = spyOn(r, 'navigate').and.stub();
 
           expect(guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBe(true);
@@ -50,7 +50,7 @@ describe('IsJoinedGuard', () => {
       `returns false if there isn't a logged-in user`,
       inject([Router, RoomsService, IsJoinedGuard],
         (r: Router, as: RoomsService, guard: IsJoinedGuard) => {
-          const isLoggedInSpy = spyOn(as, 'isLoggedIn').and.returnValue(false);
+          const isLoggedInSpy = spyOn(as, 'isAuthenticated').and.returnValue(false);
           const navigateSpy = spyOn(r, 'navigate').and.stub();
 
           expect(guard.canActivate({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)).toBe(false);

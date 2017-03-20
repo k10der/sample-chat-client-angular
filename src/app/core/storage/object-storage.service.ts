@@ -15,6 +15,10 @@ export class ObjectStorage implements AppStorage {
     return this.data[key];
   }
 
+  removeItem(key: string): void {
+    delete this.data[key];
+  }
+
   setItem(key: string, value: string): void {
     this.data[key] = value;
   }
