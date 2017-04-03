@@ -6,7 +6,7 @@ import { MdDialogRef } from '@angular/material';
   styleUrls: ['create-room-dialog.component.scss']
 })
 export class CreateRoomDialogComponent {
-  newRoom: {} = {};
+  newRoom: any = {};
 
   constructor(private dialogRef: MdDialogRef<CreateRoomDialogComponent>) {
   }
