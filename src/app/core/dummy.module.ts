@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 
-@NgModule({
-  imports: [],
-  declarations: []
-})
+@NgModule()
 export class DummyModule {
 }

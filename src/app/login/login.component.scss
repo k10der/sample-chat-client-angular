@@ -1,13 +1,59 @@
 .page {
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+
+.app-logo {
+  margin-top: 10rem;
+  width: 8rem;
+  height: 8rem;
+  background: url("../../assets/img/angular-logo.svg");
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
   align-items: center;
+
+  position: relative;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
+}
+
+.login-form-card {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+
+  position: absolute;
+  top: -5rem;
+}
+
+.login-form-inputs {
+  display: flex;
+  flex-direction: column;
   align-content: center;
+  align-items: stretch;
+}
+
+.login-form-actions {
+  align-self: flex-end;
+  margin-bottom: 0;
+}
+
+.page-hero {
+  width: 100%;
+  flex: 2;
+  background: url("../../assets/img/app-background.svg");
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  align-content: center;
 }

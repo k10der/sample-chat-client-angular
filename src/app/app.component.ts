@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { trigger, state, transition, style, animate } from '@angular/animations';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,12 +16,25 @@ import * as roomsReducer from './rooms/_reducers/rooms.reducer';
 import { Room } from './rooms/_models/room.model';
 import { AuthService } from './core/auth.service';
 import { SystemEffectsService } from './core/_effects/system-effects.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ca-root',
   templateUrl: './app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
+  animations: [
+    trigger('visib', [
+      state('yes', style({
+        position: 'absolute',
+        top: 0,
+      })),
+      state('void', style({
+        position: 'absolute',
+        top: -64,
+      })),
+      transition(':enter', animate('0.3s ease-in-out')),
+      transition(':leave', animate('0.3s ease-in-out')),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
   // Connection state

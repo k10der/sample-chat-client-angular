@@ -1,25 +1,35 @@
+:host {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: calc(100vh - 64px);
+}
+
 .chat-container {
   display: flex;
   flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 1rem);
 }
 
 .chat-main {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-bottom: 1rem;
+  margin: 1rem;
+  flex-grow: 1;
 }
 
 .chat-messages {
   flex: 1;
-  overflow: hidden;
-  margin: 0 1rem;
+  overflow-y: scroll;
 }
 
 .chat-users {
   width: 200px;
-  overflow-y: hidden;
-  margin: 0 1rem;
+  margin-left: 1rem;
+  overflow-y: scroll;
 }
 
 .chat-input {

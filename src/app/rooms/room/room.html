@@ -1,27 +1,10 @@
-<!--<nav md-tab-nav-bar>-->
-<!--<a md-tab-link-->
-<!--*ngFor="let link of [1,2,3,4,5]"-->
-<!--[routerLink]="['./', link]">-->
-<!--{{link}}-->
-<!--</a>-->
-<!--</nav>-->
-<!--<nav md-tab-nav-bar>-->
-<!--<a md-tab-link-->
-<!--*ngFor="let link of [1,2,3,4,5]"-->
-<!--[routerLink]="['./', link]"-->
-<!--routerLinkActive #rla="routerLinkActive"-->
-<!--[active]="rla.isActive">-->
-<!--{{link}}-->
-<!--</a>-->
-<!--</nav>-->
-<!--<router-outlet></router-outlet>-->
-<button md-button (click)="leaveRoom(roomId)">Leave room {{roomId}}</button>
 <div class="chat-container">
   <div class="chat-main">
     <md-card class="chat-messages">
       <md-card-content>
         <p *ngFor="let m of (messages$ | async)">[{{m.createdAt | date: 'yyyy.MM.dd HH:mm:ss'}}] {{m.user}}:
           {{m.text}}</p>
+        <button md-button (click)="leaveRoom(roomId)">Leave room {{roomId}}</button>
       </md-card-content>
     </md-card>
     <md-card class="chat-users">

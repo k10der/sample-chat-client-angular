@@ -30,7 +30,8 @@
 
   <md-toolbar class="app__toolbar"
               color="primary"
-              *ngIf="(profile$ | async).isAuthenticated">
+              *ngIf="(profile$ | async).isAuthenticated"
+              [@visib]="enabled ? 'yes' : 'no'">
 
     <button md-icon-button
             (click)="sidenav.open()">
