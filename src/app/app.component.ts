@@ -29,8 +29,6 @@ export class AppComponent implements OnInit, OnDestroy {
   // User's profile
   profile$: Observable<any>;
 
-  state: any; // TODO
-
   private broadcastLogout$: Subscription;
   private processConnection$: Subscription;
 
@@ -38,7 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
               private router: Router,
               private store: Store<any>,
               private systemEffectsService: SystemEffectsService) {
-    this.store.subscribe(data => this.state = data); // TODO
     this.connection$ = this.store.select(systemReducer.getConnectionState);
     this.profile$ = this.store.select(profileReducer.getProfile);
     this.joinedRooms$ = this.store.select(roomsReducer.getJoinedRooms);

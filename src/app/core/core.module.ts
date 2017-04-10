@@ -4,10 +4,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthHttp } from 'angular2-jwt';
 import * as io from 'socket.io-client';
 
 import { environment } from '../../environments/environment';
+
+import { DummyModule } from './dummy.module';
 
 import { authHttpFactory } from './authHttp.factory';
 import { APP_STORAGE_TYPE } from './storage/app-storage';
@@ -41,6 +44,7 @@ export function socketIOFactory() {
     RouterModule,
     SharedModule,
     StoreModule.provideStore({}),
+    !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : DummyModule,
   ],
   declarations: [
     TopMenuComponent,
