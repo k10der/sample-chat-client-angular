@@ -1,0 +1,42 @@
+.page-container {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+}
+
+.page-background {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: stretch;
+
+  &__hero {
+    width: 100%;
+
+    background: url("../../../assets/img/app-background.svg");
+
+    display: flex;
+
+    flex: 2;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
+
+  &__pattern {
+    flex: 3;
+  }
+}
+
+.page-content {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}

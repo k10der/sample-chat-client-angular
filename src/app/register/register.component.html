@@ -1,33 +1,52 @@
-<p>
-  register works!
-</p>
-<form (submit)="createAccountAction(registerForm.value)" #registerForm="ngForm" #f>
-  <div>
-    <label for="username">Username</label>
-    <br>
-    <input id="username"
-           name="username"
-           type="text"
-           [(ngModel)]="user.username"
-           #username="ngModel"
-           pattern="[_0-9a-zA-Z]+"
-           minlength="3"
-           maxlength="50"
-           required>
-    <div *ngIf="username.invalid && username.touched">Invalid!</div>
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <br>
-    <input id="password"
-           name="password"
-           type="password"
-           [(ngModel)]="user.password"
-           #password="ngModel"
-           minlength="6"
-           maxlength="100"
-           required>
-    <div *ngIf="password.invalid  && password.touched">Invalid!</div>
-  </div>
-  <button type="submit" [disabled]="!registerForm.valid || processingForm">Register</button>
-</form>
+<div class="page">
+
+  <div class="page-logo"></div>
+
+  <md-card class="register-card mat-elevation-z10">
+    <form class="register-card__form"
+          #registerForm="ngForm"
+          (ngSubmit)="createAccountAction(registerForm)">
+      <md-card-title>Create a new user</md-card-title>
+
+      <md-card-content class="register-card__form__inputs">
+        <md-input-container>
+          <input id="username"
+                 name="username"
+                 type="text"
+                 placeholder="User name"
+                 mdInput
+                 [(ngModel)]="user.username"
+                 #username="ngModel"
+                 pattern="[_a-zA-Z0-9]{3,25}"
+                 minlength="3"
+                 maxlength="50"
+                 required>
+        </md-input-container>
+        <md-input-container>
+          <input id="password"
+                 name="password"
+                 type="password"
+                 placeholder="Password"
+                 mdInput
+                 [(ngModel)]="user.password"
+                 #password="ngModel"
+                 minlength="6"
+                 maxlength="100"
+                 required>
+        </md-input-container>
+
+      </md-card-content>
+
+      <md-card-actions class="register-card__form__actions">
+        <a routerLink="/login"
+           md-button>Log in
+        </a>
+        <button type="submit"
+                md-button
+                [disabled]="registerForm.invalid || processingForm">Register
+        </button>
+      </md-card-actions>
+    </form>
+  </md-card>
+
+</div>

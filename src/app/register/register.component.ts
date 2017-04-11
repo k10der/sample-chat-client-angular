@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/finally';
 
 import { ProfileService } from '../core/profile.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   templateUrl: './register.component.html',
@@ -27,7 +28,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
 
-  createAccountAction(user: any) {
+  createAccountAction(f: NgForm) {
+    const user = f.value;
+
     // Setting processing form flag
     this.processingForm = true;
     // Trying to register a user

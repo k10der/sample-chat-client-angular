@@ -27,7 +27,7 @@ import { UsersService } from './users.service';
 import { reducer as profileReducer } from './_reducers/profile.reducer';
 import { reducer as systemReducer } from './_reducers/system.reducer';
 
-import { TopMenuComponent } from './top-menu/top-menu.component';
+import { PageContainerComponent } from './page-container/page-container.component';
 import { IsAuthenticatedGuard } from './_guards/is-authenticated.guard';
 import { SystemEffectsService } from './_effects/system-effects.service';
 
@@ -47,7 +47,7 @@ export function socketIOFactory() {
     !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : DummyModule,
   ],
   declarations: [
-    TopMenuComponent,
+    PageContainerComponent,
   ],
   providers: [
     {
@@ -80,7 +80,7 @@ export function socketIOFactory() {
   exports: [
     BrowserModule,
     HttpModule,
-    TopMenuComponent,
+    PageContainerComponent,
   ]
 })
 export class CoreModule {
