@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MdButtonModule, MdCardModule, MdInputModule } from '@angular/material';
 
 import { LoginComponent } from './login.component';
 import { SharedModule } from '../shared/shared.module';
@@ -13,8 +14,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    SharedModule,
+    MdButtonModule,
+    MdCardModule,
+    MdInputModule,
     RouterModule.forChild(routes),
+    SharedModule,
   ],
   declarations: [
     LoginComponent,

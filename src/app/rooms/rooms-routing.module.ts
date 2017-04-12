@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MdButtonModule, MdCardModule, MdDialogModule, MdIconModule, MdInputModule } from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from '../shared/shared.module';
@@ -36,11 +37,16 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes),
-    SharedModule,
     EffectsModule.run(MessagesEffectsService),
     EffectsModule.run(RoomUsersEffectsService),
     EffectsModule.run(RoomsEffectsService),
+    MdButtonModule,
+    MdCardModule,
+    MdDialogModule,
+    MdIconModule,
+    MdInputModule,
+    RouterModule.forChild(routes),
+    SharedModule,
   ],
   providers: [
     IsJoinedGuard,
