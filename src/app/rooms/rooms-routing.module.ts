@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MdButtonModule, MdCardModule, MdDialogModule, MdIconModule, MdInputModule } from '@angular/material';
+import {
+  MdButtonModule, MdCardModule, MdChipsModule, MdDialogModule, MdIconModule,
+  MdInputModule
+} from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from '../shared/shared.module';
@@ -42,6 +45,7 @@ const routes: Routes = [
     EffectsModule.run(RoomsEffectsService),
     MdButtonModule,
     MdCardModule,
+    MdChipsModule,
     MdDialogModule,
     MdIconModule,
     MdInputModule,

@@ -10,8 +10,6 @@ import * as io from 'socket.io-client';
 
 import { environment } from '../../environments/environment';
 
-import { DummyModule } from './dummy.module';
-
 import { authHttpFactory } from './authHttp.factory';
 import { APP_STORAGE_TYPE } from './storage/app-storage';
 import { AuthService } from './auth.service';
@@ -44,7 +42,7 @@ export function socketIOFactory() {
     RouterModule,
     SharedModule,
     StoreModule.provideStore({}),
-    !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : DummyModule,
+    !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
   ],
   declarations: [
     PageContainerComponent,
