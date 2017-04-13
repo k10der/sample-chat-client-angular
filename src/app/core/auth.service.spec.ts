@@ -45,7 +45,7 @@ describe('AuthService', () => {
           service.authenticate(username, password)
             .subscribe(data => {
               expect(data).toEqual({token: expectedToken});
-              expect(storage.getItem(environment.userTokenName)).toEqual(expectedToken);
+              expect(storage.getItem(environment.userTokenFieldName)).toEqual(expectedToken);
             });
 
           expect(postSpy).toHaveBeenCalledWith(

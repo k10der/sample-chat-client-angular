@@ -15,7 +15,7 @@ export class AuthService {
   // Setting backend URL
   private backendUrl = environment.backendUrl;
   // Setting token name
-  private tokenName = environment.userTokenName;
+  private tokenName = environment.userTokenFieldName;
 
   constructor(private http: Http,
               private storage: StorageService) {

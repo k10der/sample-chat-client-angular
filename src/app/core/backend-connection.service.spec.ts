@@ -44,7 +44,7 @@ describe('BackendConnectionService', () => {
       expect(ioMock).toHaveBeenCalledWith(environment.backendUrl,
         {
           path: '/chats',
-          query: `token=${storage.getItem(environment.userTokenName)}`,
+          query: `token=${storage.getItem(environment.userTokenFieldName)}`,
         });
     }));
 

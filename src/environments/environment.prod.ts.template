@@ -1,0 +1,6 @@
+export const environment = {
+  production: true,
+  backendUrl: '<%= CA_BACKEND_URL %>',
+  storageType: '<%= CA_STORAGE_TYPE %>',
+  userTokenFieldName: '<%= CA_USER_TOKEN_FIELD_NAME %>'
+};

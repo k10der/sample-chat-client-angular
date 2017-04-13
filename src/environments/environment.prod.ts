@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  backendUrl: 'http://localhost:3000',
+  backendUrl: 'http://localhost:4000',
   storageType: 'localStorage',
-  userTokenName: 'user_token',
+  userTokenFieldName: 'user_token '
 };
