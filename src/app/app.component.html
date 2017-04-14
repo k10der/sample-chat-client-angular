@@ -2,91 +2,11 @@
 
   <md-sidenav class="sidenav"
               #sidenav>
-
-    <div class="sidenav__profile">
-
-      <div class="sidenav__profile__avatar">
-        <img src="https://randomuser.me/api/portraits/women/46.jpg" alt="Profile pic">
-      </div>
-
-      <div class="sidenav__profile__controls">
-
-        <div class="sidenav__profile__controls__user-data">
-            <p>
-              <strong>TODO nice name</strong>
-            </p>
-            <small>@{{(profile$ | async).username}}</small>
-        </div>
-
-        <button class="sidenav__profile__controls__button"
-                md-icon-button
-                (click)="sidenavMode.value = (sidenavMode.value === 'main' ? 'profile' : 'main')">
-          <md-icon>{{sidenavMode.value === 'main' ? 'arrow_drop_down' : 'arrow_drop_up'}}</md-icon>
-        </button>
-
-      </div>
-
-    </div>
-
-    <div class="sidenav__switch"
-         [ngSwitch]="sidenavMode.value">
-
-      <input type="text"
-             hidden="hidden"
-             #sidenavMode value="main">
-
-      <div class="sidenav__controls__main"
-           *ngSwitchCase="'main'">
-
-        <md-nav-list class="sidenav__controls__main__actions">
-          <h3 md-subheader>Actions</h3>
-
-          <md-list-item (click)="sidenav.close()">
-            <md-icon md-list-icon>search</md-icon>
-            <a md-line routerLink="/rooms">Browse rooms</a>
-          </md-list-item>
-
-        </md-nav-list>
-
-        <md-nav-list class="sidenav__controls__main__rooms"
-                     *ngIf="(joinedRooms$ | async).length">
-
-          <h3 md-subheader>Joined rooms</h3>
-
-          <div class="sidenav__rooms__list">
-            <md-list-item *ngFor="let room of (joinedRooms$ | async)"
-                          (click)="sidenav.close()">
-              <img src="../assets/img/angular-logo.svg"
-                   md-list-avatar>
-              <a md-line [routerLink]="['/rooms', room.id]">{{room.title}}</a>
-            </md-list-item>
-          </div>
-
-        </md-nav-list>
-      </div>
-
-      <div class="sidenav__controls__profile"
-           *ngSwitchCase="'profile'">
-
-        <md-nav-list class="sidenav__controls__main__actions">
-          <h3 md-subheader>Actions</h3>
-
-          <md-list-item (click)="sidenav.close()">
-            <md-icon md-list-icon>account_circle</md-icon>
-            <a md-line routerLink="/profile">Edit profile</a>
-          </md-list-item>
-
-          <md-list-item (click)="onLogoutClick();">
-            <md-icon md-list-icon>exit_to_app</md-icon>
-            <p md-line>Sign out</p>
-          </md-list-item>
-
-        </md-nav-list>
-
-      </div>
-
-    </div>
-
+    <ca-main-side-nav
+        [joinedRooms]="joinedRooms$ | async"
+        [profile]="profile$ | async"
+        [sidenav]="sidenav"
+        (logoutClick)="onLogoutClick()"></ca-main-side-nav>
   </md-sidenav>
 
   <md-toolbar class="app__toolbar"

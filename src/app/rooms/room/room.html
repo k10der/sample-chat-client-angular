@@ -1,5 +1,7 @@
 <div class="chat-container">
+
   <div class="chat-main">
+
     <md-card class="chat-messages">
       <md-card-content>
         <p *ngFor="let m of (messages$ | async)">[{{m.createdAt | date: 'yyyy.MM.dd HH:mm:ss'}}] {{m.user}}:
@@ -7,23 +9,41 @@
         <button md-button (click)="leaveRoom(roomId)">Leave room {{roomId}}</button>
       </md-card-content>
     </md-card>
+
     <md-card class="chat-users">
       <md-card-content>
         <p *ngFor="let u of (users$ | async)">{{u.username}}</p>
       </md-card-content>
     </md-card>
+
   </div>
-  <md-card class="chat-input">
+
+  <md-card class="chat-input-container">
     <md-card-content>
-      <md-input-container>
-        <input mdInput
-               placeholder="Type message..."
-               type="text" #msg>
-      </md-input-container>
-      <button md-icon-button
-              (click)="sendMessage(msg.value); msg.value = ''">
-        <md-icon>send</md-icon>
-      </button>
+      <form class="chat-input-container__form"
+            name="messageForm"
+            #messageForm="ngForm"
+            (ngSubmit)="onMessageSubmit(messageInput) || ta.resizeToFitContent()">
+        <md-input-container class="chat-input-container__input">
+          <textarea type="text"
+                    mdInput
+                    mdTextareaAutosize
+                    mdAutosizeMinRows="1"
+                    mdAutosizeMaxRows="5"
+                    #messageInput
+                    #ta="mdTextareaAutosize"
+                    (keyup.enter)="onEnterKeyPressed($event, messageForm)"
+                    (keyup.shift.enter)="onEnterKeyPressed($event, messageForm)"
+                    (keyup.control.enter)="onEnterKeyPressed($event, messageForm)"
+                    (keyup.meta.enter)="onEnterKeyPressed($event, messageForm)"
+                    (keyup.alt.enter)="onEnterKeyPressed($event, messageForm)"></textarea>
+        </md-input-container>
+        <button type="submit"
+                md-icon-button>
+          <md-icon>send</md-icon>
+        </button>
+      </form>
     </md-card-content>
   </md-card>
+
 </div>

@@ -1,0 +1,19 @@
+@import "~breakpoint-sass/stylesheets/_breakpoint.scss";
+@import "../../../values";
+
+$form-card-padding: 3rem;
+$form-card-padding-mobile: 1rem;
+
+.ca-form-card {
+  @include breakpoint($mq-gte-tablet) {
+    width: 400px;
+
+    padding: $form-card-padding;
+  }
+
+  @include breakpoint($mq-lte-mobile) {
+    width: 300px;
+
+    padding: $form-card-padding-mobile;
+  }
+}

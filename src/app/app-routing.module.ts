@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { IsAuthenticatedGuard } from './core/_guards/is-authenticated.guard';
 
 const routes: Routes = [
@@ -39,6 +40,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
   ],
   declarations: [],
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    }
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

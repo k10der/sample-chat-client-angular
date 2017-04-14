@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MdButtonModule, MdIconModule, MdListModule } from '@angular/material';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -25,6 +26,7 @@ import { UsersService } from './users.service';
 import { reducer as profileReducer } from './_reducers/profile.reducer';
 import { reducer as systemReducer } from './_reducers/system.reducer';
 
+import { MainSideNavComponent } from './main-side-nav/main-side-nav.component';
 import { PageContainerComponent } from './page-container/page-container.component';
 import { IsAuthenticatedGuard } from './_guards/is-authenticated.guard';
 import { SystemEffectsService } from './_effects/system-effects.service';
@@ -40,11 +42,15 @@ export function socketIOFactory() {
     EffectsModule.run(SystemEffectsService),
     HttpModule,
     RouterModule,
-    SharedModule,
+    MdButtonModule,
+    MdIconModule,
+    MdListModule,
     StoreModule.provideStore({}),
     !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
+    SharedModule,
   ],
   declarations: [
+    MainSideNavComponent,
     PageContainerComponent,
   ],
   providers: [
@@ -78,6 +84,7 @@ export function socketIOFactory() {
   exports: [
     BrowserModule,
     HttpModule,
+    MainSideNavComponent,
     PageContainerComponent,
   ]
 })

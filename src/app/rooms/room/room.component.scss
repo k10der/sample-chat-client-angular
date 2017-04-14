@@ -32,8 +32,22 @@
   overflow-y: scroll;
 }
 
-.chat-input {
-  display: flex;
-  flex-direction: row;
+.chat-input-container {
   margin: 0 1rem;
+
+  padding-top: 0;
+  padding-bottom: 0;
+
+  &__form {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__input {
+    flex: 1;
+  }
 }

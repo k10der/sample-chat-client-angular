@@ -18,7 +18,7 @@ import { SharedModule } from './shared/shared.module';
     FormsModule,
     MdButtonModule,
     MdIconModule,
-    MdListModule,
+    // MdListModule,
     MdSidenavModule,
     MdToolbarModule,
     SharedModule,

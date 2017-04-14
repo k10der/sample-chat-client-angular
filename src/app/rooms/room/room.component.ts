@@ -75,11 +75,39 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Handle a press of `Enter` key
+   *
+   * @param {KeyboardEvent} event
+   * @param {HTMLFormElement} form
+   */
+  onEnterKeyPressed(event, form) {
+    // If required modifier is pressed TODO add ability to choose modifier key
+    if (event.ctrlKey) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Submit the form
+      form.onSubmit();
+    }
+  }
+
+  /**
    * Send a message to the current room
    *
-   * @param {string} messageText - Message's body
+   * @param {HTMLTextAreaElement} messageInput
    */
-  sendMessage(messageText: string): void {
+  onMessageSubmit(messageInput): void {
+    // Get trimmed message
+    const messageText = messageInput.value.trim();
+
+    // If it's empty, then don't do anything
+    if (!messageText.length) {
+      return void 0;
+    }
+
+    // Clear current message value
+    messageInput.value = '';
+
     this.store.dispatch(new messagesActions.SendMessageAction({
       roomId: this.roomId,
       message: this.messagesService.createMessage(messageText),

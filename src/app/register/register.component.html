@@ -1,8 +1,6 @@
 <div class="page">
 
-  <div class="page-logo"></div>
-
-  <md-card class="register-card mat-elevation-z10">
+  <md-card class="ca-form-card register-card mat-elevation-z10">
     <form class="register-card__form"
           #registerForm="ngForm"
           (ngSubmit)="createAccountAction(registerForm)">
@@ -38,15 +36,20 @@
       </md-card-content>
 
       <md-card-actions class="register-card__form__actions">
-        <a routerLink="/login"
-           md-button>Log in
-        </a>
         <button type="submit"
                 md-button
                 [disabled]="registerForm.invalid || processingForm">Register
         </button>
       </md-card-actions>
+
     </form>
+
+    <md-card-footer>
+      <md-card-content class="register-card__footer-content">
+        Already joined? <a routerLink="/login">Sign in</a>
+      </md-card-content>
+    </md-card-footer>
+
   </md-card>
 
 </div>

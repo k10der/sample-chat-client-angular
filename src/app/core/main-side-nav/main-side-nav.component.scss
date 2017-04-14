@@ -1,0 +1,85 @@
+.sidenav {
+  display: flex;
+
+  flex-direction: column;
+
+  &__profile {
+    height: 150px;
+
+    padding: 16px;
+
+    background: url("../../../assets/img/app-background.svg") -100px 500px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    &__avatar {
+      display: flex;
+
+      flex: 1;
+      flex-direction: row;
+      align-items: center;
+
+      img {
+        width: 64px;
+        height: 64px;
+
+        border-radius: 32px;
+      }
+    }
+
+    &__controls {
+      height: 56px;
+
+      display: flex;
+
+      align-items: center;
+
+      &__user-data {
+        user-select: none;
+        cursor: default;
+
+        flex: 1;
+
+        p {
+          padding: 0;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  &__switch {
+    display: flex;
+
+    flex-direction: column;
+  }
+
+  &__controls {
+    &__main {
+      display: flex;
+
+      flex-direction: column;
+
+      &__rooms {
+        display: flex;
+
+        flex: 1;
+        flex-direction: column;
+
+        &__list {
+          overflow-y: scroll;
+
+          flex: 1;
+        }
+      }
+    }
+
+    &__profile {
+      display: flex;
+
+      flex-direction: column;
+    }
+  }
+}

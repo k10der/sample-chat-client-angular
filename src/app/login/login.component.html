@@ -2,7 +2,7 @@
 
   <div class="page-logo"></div>
 
-  <md-card class="login-card mat-elevation-z10">
+  <md-card class="ca-form-card login-card mat-elevation-z10">
     <form class="login-card__form"
           #loginForm="ngForm"
           (ngSubmit)="onLoginFormSubmit(loginForm)">
@@ -31,16 +31,22 @@
 
       </md-card-content>
 
-      <md-card-actions class="login-card__form__actions">
-        <a routerLink="/register"
-           md-button>Sign Up
-        </a>
+      <md-card-actions class="login-card__form__actions"
+                       align="end">
         <button type="submit"
                 md-button
                 [disabled]="loginForm.invalid">Login
         </button>
       </md-card-actions>
+
     </form>
+
+    <md-card-footer>
+      <md-card-content class="login-card__footer-content">
+        No account yet? <a routerLink="/register">Create one</a>
+      </md-card-content>
+    </md-card-footer>
+
   </md-card>
 
 </div>

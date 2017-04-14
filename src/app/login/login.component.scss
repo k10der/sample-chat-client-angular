@@ -1,3 +1,5 @@
+@import "../shared/styles/ca-form-card";
+
 .page-logo {
   width: 8rem;
   height: 8rem;
@@ -19,8 +21,6 @@
   justify-content: center;
 
   .login-card {
-    padding: 3rem;
-
     display: flex;
 
     flex-direction: column;
@@ -40,8 +40,17 @@
 
       &__actions {
         margin-bottom: 0;
+      }
+    }
 
-        align-self: flex-end;
+    &__footer-content {
+      text-align: center;
+
+      @include breakpoint($mq-gte-tablet) {
+        padding: 0 $form-card-padding;
+      }
+      @include breakpoint($mq-lte-mobile) {
+        padding: 0 $form-card-padding-mobile;
       }
     }
   }

@@ -1,1 +1,56 @@
+// Screen sizes for media queries
+$res-4k-min: 2560px;
+$res-4k-max: 10000px;
+$res-laptop-l-min: 1440px;
+$res-laptop-l-max: $res-4k-min - 1px;
+$res-laptop-min: 1024px;
+$res-laptop-max: $res-laptop-l-min - 1px;
+$res-tablet-min: 768px;
+$res-tablet-max: $res-laptop-min - 1px;
+$res-mobile-l-min: 475px;
+$res-mobile-l-max: $res-tablet-min - 1px;
+$res-mobile-m-min: 425px;
+$res-mobile-m-max: $res-mobile-l-min - 1px;
+$res-mobile-s-min: 320px;
+$res-mobile-s-max: $res-mobile-m-min - 1px;
+
+// 4k
+$mq-4k: $res-4k-min $res-4k-max;
+$mq-gte-4k: $res-4k-min;
+
+// Laptop large
+$mq-laptop-l: $res-laptop-l-min $res-laptop-l-max;
+$mq-gte-laptop-l: $res-laptop-l-min;
+$mq-lte-laptop-l: 0 $res-laptop-l-max;
+
+// Laptop
+$mq-laptop: $res-laptop-min $res-laptop-max;
+$mq-gte-laptop: $res-laptop-min;
+$mq-lte-laptop: 0 $res-laptop-max;
+
+// Tablet
+$mq-tablet: $res-tablet-min $res-tablet-max;
+$mq-gte-tablet: $res-tablet-min;
+$mq-lte-tablet: 0 $res-tablet-max;
+
+// Mobile large
+$mq-mobile-l: $res-mobile-l-min $res-mobile-l-max;
+$mq-gte-mobile-l: $res-mobile-l-min;
+$mq-lte-mobile-l: 0 $res-mobile-l-max;
+
+// Mobile medium
+$mq-mobile-m: $res-mobile-m-min $res-mobile-m-max;
+$mq-gte-mobile-m: $res-mobile-m-min;
+$mq-lte-mobile-m: 0 $res-mobile-m-max;
+
+// Mobile small
+$mq-mobile-s: $res-mobile-s-min $res-mobile-s-max;
+$mq-gte-mobile-s: $res-mobile-s-min;
+$mq-lte-mobile-s: 0 $res-mobile-s-max;
+
+// Mobile all
+$mq-mobile: $res-mobile-s-min $res-mobile-l-max;
+$mq-gte-mobile: $res-mobile-s-min;
+$mq-lte-mobile: 0 $res-mobile-l-max;
+
 $color-main: #f6f6f6;
